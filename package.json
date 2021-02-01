@@ -7,8 +7,8 @@
     "test": "node test.js"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/waseeld/ranidb.git"
+    "type": "git",
+    "url": "https://github.com/waseeld/ranidb.git"
   },
   "keywords": [
     "ranidb",
@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "fs": "0.0.1-security",
+    "lodash": "^4.17.20",
     "shortid": "^2.2.16"
   }
 }

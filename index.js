@@ -1,5 +1,7 @@
 const fs = require('fs');
 const shortid = require('shortid');
+var lodash = require('lodash');
+
 module.exports = class Ranidb {
     constructor(path_db) {
         this.path_db = path_db;
@@ -21,7 +23,17 @@ module.exports = class Ranidb {
             }
 
             //done
-            return { state: 200}
+            return { state: 200 }
         })
+    }
+
+    find(data) {
+        let db = this.getAll();
+        return lodash.find(db, data);
+    }
+
+    filter(data){
+        let db = this.getAll();
+        return lodash.filter(db, data);
     }
 }
