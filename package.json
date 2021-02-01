@@ -1,0 +1,24 @@
+{
+  "name": "ranidb",
+  "version": "0.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/waseeld/ranidb.git"
+  },
+  "keywords": [
+    "ranidb",
+    "json",
+    "db"
+  ],
+  "author": "Waseel AL-mahri",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "shortid": "^2.2.16"
+  }
+}
