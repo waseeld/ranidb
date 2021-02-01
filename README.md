@@ -17,7 +17,7 @@ yarn add ranidb
 ## example :
 
 ```javascript
-const ranidb = require('../lib/ranidb');
+const ranidb = require('ranidb');
 
 let db = new ranidb("./db/data.json");
 
