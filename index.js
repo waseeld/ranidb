@@ -1,7 +1,6 @@
 const fs = require('fs');
 const shortid = require('shortid');
 var lodash = require('lodash');
-const { findIndex } = require('lodash');
 
 class Ranidb {
     constructor(path_db) {
@@ -48,6 +47,11 @@ class Ranidb {
     filter(data) {
         let db = this.getAll();
         return lodash.filter(db, data);
+    }
+
+    map(fun){
+        let db = this.getAll();
+        return lodash.map(db, data);
     }
 
     updata(id, data) {
