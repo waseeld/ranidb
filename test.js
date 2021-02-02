@@ -1,7 +1,7 @@
-const ranidb = require('../lib/ranidb');
+const ranidb = require('./index');
 
 let db = new ranidb("./db/data.json");
 
 console.log(db.getAll());
 
-db.insert({msg:"fdfsdsf"})
+console.log(db.insert({msg:"fdfsdsf"}));

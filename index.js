@@ -23,8 +23,8 @@ module.exports = class Ranidb {
             }
 
             //done
-            return { state: 200 }
         })
+        return data
     }
 
     find(data) {
