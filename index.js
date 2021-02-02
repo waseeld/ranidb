@@ -7,14 +7,11 @@ class Ranidb {
         this.path_db = path_db;
     }
 
-
     ensureFile(callback) {
         if (fs.existsSync(this.path_db)) {
             return callback();
         } else {
-            fs.writeFileSync(this.path_db, JSON.stringify([]), { flag: 'wx' }, function (err, data) {
-
-            })
+            fs.writeFileSync(this.path_db, JSON.stringify([]), { flag: 'wx' })
             return "Not found db\nCreate new DB";
         }
     }
