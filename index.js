@@ -23,7 +23,7 @@ class Ranidb {
         return JSON.parse(data);
     }
 
-    insert(data) {
+    push(data) {
         let db = this.getAll();
         data = {
             _id: shortid.generate(),
