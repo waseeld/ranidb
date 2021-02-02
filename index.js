@@ -14,11 +14,12 @@ module.exports = class Ranidb {
 
     insert(data) {
         let db = this.getAll();
-        db.push({
+        data = {
             _id: shortid.generate(),
             ...data
-        });
-        db = JSON.stringify(db)
+        };
+        db.push(data);
+        db = JSON.stringify(db);
         fs.writeFileSync(this.path_db, db, { encoding: "utf-8" }, err => {
             if (err) {
                 return console.error(err)
