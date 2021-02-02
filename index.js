@@ -15,7 +15,7 @@ class Ranidb {
             fs.writeFileSync(this.path_db, JSON.stringify([]), { flag: 'wx' }, function (err, data) {
 
             })
-            return "Create DB";
+            return "Not found db\nCreate new DB";
         }
     }
 
