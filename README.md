@@ -14,14 +14,14 @@ or with yarn:
 yarn add ranidb
 ```
 ## API
-- <a href="#ranidb"><code><b>Ranidb()</b></code></a>
+- <a href="#core"><code><b>Ranidb()</b></code></a>
 - <a href="#save"><code>db.<b>save()</b></code></a>
 - <a href="#getAll"><code>db.<b>getAll()</b></code></a>
 - <a href="#push"><code>db.<b>push()</b></code></a>
 - <a href="#find"><code>db.<b>find()</b></code></a>
 - <a href="#filter"><code>db.<b>filter()</b></code></a>
 
-<a name="ranidb"></a>
+<a name="core"></a>
 
 ### `Ranidb(path_db)`
 The main entry point for creating a new `Ranidb` instance.
