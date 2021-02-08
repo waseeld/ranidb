@@ -222,6 +222,60 @@ db.find({_id:"rqACSWx6kA", age: 40})
 
 
 
+<a name="map"></a>
+
+### `map(fun)`
+
+This function will data to need find.
+
+- `fun` it must be function.
+
+```js
+let db = new ranidb("./db/data.json");
+function fun(n) {
+  // some codes
+}
+db.map(fun)
+```
+
+
+
+<a name="updata"></a>
+
+### `updata(id, data)`
+
+This function will data to need find.
+
+- `id` it must be string.
+- `data` it must be object.
+
+```js
+let db = new ranidb("./db/data.json");
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+
+let data = {
+    _id: 'Wtl9v2x-Q',
+    user: 'barney',
+    age: 42,
+    active: true
+}
+
+db.updata("Wtl9v2x-Q", data)
+
+/* Output :
+   { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true }
+*/
+```
+
+
+
 ## example :
 
 1- ``` getAll && push ``` :
