@@ -20,6 +20,11 @@ yarn add ranidb
 - <a href="#push"><code>db.<b>push()</b></code></a>
 - <a href="#find"><code>db.<b>find()</b></code></a>
 - <a href="#filter"><code>db.<b>filter()</b></code></a>
+- <a href="#map"><code>db.<b>map()</b></code></a>
+
+- <a href="#updata"><code>db.<b>updata()</b></code></a>
+
+
 
 <a name="core"></a>
 
@@ -37,7 +42,7 @@ let db = new ranidb("./db/data.json");
 ### `save(data)`
 This function will delete all data and then rewrite it again.
 
-- `path_db` it must be Array data.
+- `data` it must be Array data.
 
 ```js
 let db = new ranidb("./db/data.json");
@@ -49,6 +54,49 @@ let arr = [
 
 db.save(arr)
 ```
+
+
+
+<a name="getAll"></a>
+
+### `getAll()`
+
+This function will return data in file json.
+
+```js
+let db = new ranidb("./db/data.json");
+db.getAll()
+
+/* Output :
+[
+    // all data in DB (File json)
+]
+*/
+```
+
+
+
+<a name="push"></a>
+
+### push(data)`
+
+This function will push data in file json.
+
+- `data` it must be object data.
+
+```js
+let db = new ranidb("./db/data.json");
+let data = {name:"ahmed", age:17};
+
+db.push(data);
+/* Output :
+{
+   {"_id": "R_Ddwtu1A", name:"ahmed", age:17}
+}
+*/
+```
+
+
 
 ## example :
 
