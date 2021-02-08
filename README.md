@@ -65,7 +65,7 @@ db.getAll();
 ]
 */
 
-db.insert({msg:"Hello World"})
+db.push({msg:"Hello World"})
 
 /* Output :
     {"_id":"W_Ddwtu1A", msg:"Hello World"}
