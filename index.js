@@ -63,7 +63,7 @@ class Ranidb {
 
     map(fun) {
         let db = this.getAll();
-        return lodash.map(db, data);
+        return lodash.map(db, fun);
     }
 
     updata(id, data) {
