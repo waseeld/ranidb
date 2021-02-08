@@ -20,9 +20,12 @@ yarn add ranidb
 - <a href="#push"><code>db.<b>push()</b></code></a>
 - <a href="#find"><code>db.<b>find()</b></code></a>
 - <a href="#filter"><code>db.<b>filter()</b></code></a>
+- <a href="#findIndex"><code>db.<b>findIndex()</b></code></a>
 - <a href="#map"><code>db.<b>map()</b></code></a>
 
 - <a href="#updata"><code>db.<b>updata()</b></code></a>
+
+
 
 
 
@@ -78,7 +81,7 @@ db.getAll()
 
 <a name="push"></a>
 
-### push(data)`
+### `push(data)`
 
 This function will push data in file json.
 
@@ -98,6 +101,60 @@ db.push(data);
 
 
 
+<a name="find"></a>
+
+### `find(data)`
+
+This function will data to need find.
+
+- `data` it must be object data or function.
+
+```js
+let db = new ranidb("./db/data.json");
+
+db.find({_id:"rqACSWx6kA"})
+
+/* Output :
+    {"_id": "rqACSWx6kA","user": "fred","age": 40,"active": false}
+*/
+
+db.find({_id:"rqACSWx6kA", age: 40})
+
+/* Output :
+    {"_id": "rqACSWx6kA","user": "fred","age": 40,"active": false}
+*/
+```
+
+
+
+
+
+<a name="filter"></a>
+
+### `filter(data)`
+
+This function will data to need find.
+
+- `data` it must be object data or function.
+
+```js
+let db = new ranidb("./db/data.json");
+
+db.find({_id:"rqACSWx6kA"})
+
+/* Output :
+    {"_id": "rqACSWx6kA","user": "fred","age": 40,"active": false}
+*/
+
+db.find({_id:"rqACSWx6kA", age: 40})
+
+/* Output :
+    {"_id": "rqACSWx6kA","user": "fred","age": 40,"active": false}
+*/
+```
+
+
+
 ## example :
 
 1- ``` getAll && push ``` :
@@ -106,20 +163,29 @@ const ranidb = require('ranidb');
 
 let db = new ranidb("./db/data.json");
 
-db.getAll();
+db.filter((user) => user.age > 12)
+
 /* Output :
 [
-    // all data in DB
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'rqACSWx6kA', user: 'fred', age: 40, active: false }
 ]
 */
 
-db.push({msg:"Hello World"})
+db.filter((user) => user.active == true)
 
 /* Output :
-    {"_id":"W_Ddwtu1A", msg:"Hello World"}
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
 */
 
 ```
+
+
 
 2- ``` find && filter ```
 in data.json
