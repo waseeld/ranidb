@@ -13,7 +13,18 @@ or with yarn:
 ```bash
 yarn add ranidb
 ```
+
+
+## Used with node
+
+```js
+const ranidb = require('ranidb');
+```
+
+
+
 ## API
+
 - <a href="#core"><code><b>Ranidb()</b></code></a>
 - <a href="#save"><code>db.<b>save()</b></code></a>
 - <a href="#getAll"><code>db.<b>getAll()</b></code></a>
@@ -107,7 +118,7 @@ db.push(data);
 
 This function will data to need find.
 
-- `data` it must be object data or function.
+- `data` it must be object data.
 
 ```js
 let db = new ranidb("./db/data.json");
@@ -122,6 +133,62 @@ db.find({_id:"rqACSWx6kA", age: 40})
 
 /* Output :
     {"_id": "rqACSWx6kA","user": "fred","age": 40,"active": false}
+*/
+```
+
+
+
+<a name="findIndex"></a>
+
+### `findIndex(data)`
+
+This function will find index for this data.
+
+- `data` it must be object data.
+
+```js
+let db = new ranidb("./db/data.json");
+
+/*
+[
+    {
+        "_id": "Wtl9v2x-Q",
+        "user": "barney",
+        "age": 36,
+        "active": true
+    },
+    {
+        "_id": "rqACSWx6kA",
+        "user": "fred",
+        "age": 40,
+        "active": false
+    },
+    {
+        "_id": "DniDQHMNpo",
+        "user": "pebbles",
+        "age": 1,
+        "active": true
+    }
+]
+*/
+
+db.findIndex({_id:"Wtl9v2x-Q"})
+
+/* Output :
+    0
+*/
+
+db.findIndex({_id:"rqACSWx6kA", age: 40})
+
+/* Output :
+    1
+*/
+
+// for not find
+db.findIndex({_id:"rqACSWx6kA", age: 42})
+
+/* Output :
+    -1
 */
 ```
 
