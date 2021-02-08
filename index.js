@@ -70,7 +70,7 @@ class Ranidb {
         let db = this.getAll();
         let index = this.findIndex({ _id: id });
         db[index] = data;
-        return this.save(db);
+        return data;
     }
 }
 
