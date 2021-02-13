@@ -3,19 +3,31 @@ const shortid = require('shortid');
 var lodash = require('lodash');
 
 class Ranidb {
-    constructor(path_db, setting) {
+    _default: {
+        idType: 'random'
+    }
 
+    constructor(path_db, setting = this.default) {
         this.path_db = path_db;
+        this.setType(setting.idType);
+    }
 
-        this.idType = setting.idType || 1;
-
+    setType(type) {
+        const types = ["random", "empty", "gradual"];
+        const index = types.indexOf(type);
+        if (index !== -1) {
+            this.idType = index + 1;
+        } else {
+            console.log("idType is not correct")
+            this.idType = 1;
+        }
     }
 
     ensureFile(callback) {
         if (fs.existsSync(this.path_db)) {
             return callback();
         } else {
-            fs.writeFileSync(this.path_db, JSON.stringify([]), {flag: 'wx'})
+            fs.writeFileSync(this.path_db, JSON.stringify([]), { flag: 'wx' })
             return "Not found db\nCreate new DB";
         }
     }
@@ -23,7 +35,7 @@ class Ranidb {
     save(data) {
         data = JSON.stringify(data);
         this.ensureFile(() => {
-            fs.writeFileSync(this.path_db, data, {encoding: "utf-8"}, err => {
+            fs.writeFileSync(this.path_db, data, { encoding: "utf-8" }, err => {
                 if (err) {
                     return console.error(err)
                 }
@@ -33,7 +45,7 @@ class Ranidb {
 
     getAll() {
         let db = this.ensureFile(() => {
-            let data = fs.readFileSync(this.path_db, {encoding: "utf-8"});
+            let data = fs.readFileSync(this.path_db, { encoding: "utf-8" });
             return JSON.parse(data);
         })
         return db
@@ -85,7 +97,7 @@ class Ranidb {
 
     updata(id, data) {
         let db = this.getAll();
-        let index = this.findIndex({_id: id});
+        let index = this.findIndex({ _id: id });
         db[index] = data;
         return data;
     }
