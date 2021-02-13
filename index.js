@@ -7,7 +7,7 @@ class Ranidb {
 
         this.path_db = path_db;
 
-        this.idType = setting.idType || 0;
+        this.idType = setting.idType || 1;
 
     }
 
