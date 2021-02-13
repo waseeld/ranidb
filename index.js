@@ -3,8 +3,24 @@ const shortid = require('shortid');
 var lodash = require('lodash');
 
 class Ranidb {
-    constructor(path_db) {
+    _default: {
+        idType: 'random'
+    }
+
+    constructor(path_db, setting = this.default) {
         this.path_db = path_db;
+        this.setType(setting.idType);
+    }
+
+    setType(type) {
+        const types = ["random", "empty", "gradual"];
+        const index = types.indexOf(type);
+        if (index !== -1) {
+            this.idType = index + 1;
+        } else {
+            console.log("idType is not correct")
+            this.idType = 1;
+        }
     }
 
     ensureFile(callback) {
@@ -36,11 +52,24 @@ class Ranidb {
     }
 
     push(data) {
-        let db = this.getAll();
+
+        let all = this.getAll();
+
+        let lastId = all.length ? (all[all.length - 1]._id + 1) : 1;
+
+        let db = all;
+
+        let _id = undefined;
+
+        if (this.idType === 0) {
+            _id = shortid.generate()
+        } else if (this.idType === 3) _id = lastId
+
         data = {
-            _id: shortid.generate(),
+            _id: _id,
             ...data
         };
+
         db.push(data);
         this.save(db);
         return data
