@@ -33,8 +33,8 @@ const ranidb = require('ranidb');
 - <a href="#filter"><code>db.<b>filter()</b></code></a>
 - <a href="#findIndex"><code>db.<b>findIndex()</b></code></a>
 - <a href="#map"><code>db.<b>map()</b></code></a>
-
 - <a href="#updata"><code>db.<b>updata()</b></code></a>
+- <a href="#Options"><code><b>Options</b></code></a>
 
 
 
@@ -281,3 +281,41 @@ db.updata("Wtl9v2x-Q", data)
    { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true }
 */
 ```
+
+<a name="Options"></a>
+
+### `Options`
+
+now we're going to make changes to some of the virtual things
+
+- `idType` it must be string.
+    * random (default)
+    ```js
+    let db = new ranidb("./db/data.json" , {idType : 'random'} );
+    /*
+    is like let db = new ranidb("./db/data.json")
+    */
+    /* Output :
+       { _id: 'Wtl9v2x-Q', ... }
+    */
+    ```
+
+    * empty
+    ```js
+    let db = new ranidb("./db/data.json" , {idType : 'empty'} );
+    /* Output :
+       { ... }
+    */
+    ```
+    
+    * gradual
+    ```js
+    let db = new ranidb("./db/data.json" , {idType : 'gradual'} );
+    /* Output :
+       { _id: '1', ... },
+       { _id: '2', ... },
+       { _id: '3', ... },
+       { _id: '4', ... },
+       { _id: '5', ... }
+    */
+    ```
