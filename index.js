@@ -58,7 +58,7 @@ class Ranidb {
 
         let _id = undefined;
 
-        if (this.idType === 0) {
+        if (this.idType === 1) {
             _id = shortid.generate()
         } else if (this.idType === 3) _id = lastId
 
