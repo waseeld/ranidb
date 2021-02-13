@@ -98,6 +98,14 @@ class Ranidb {
         db[index] = data;
         return data;
     }
+
+    clear(){
+        try {
+            this.save([])
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 module.exports = Ranidb
