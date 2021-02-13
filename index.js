@@ -3,11 +3,8 @@ const shortid = require('shortid');
 var lodash = require('lodash');
 
 class Ranidb {
-    _default: {
-        idType: 'random'
-    }
 
-    constructor(path_db, setting = this.default) {
+    constructor(path_db, setting = { idType: 'random' }) {
         this.path_db = path_db;
         this.setType(setting.idType);
     }
