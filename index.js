@@ -84,7 +84,14 @@ class Ranidb {
 
     filter(data) {
         let db = this.getAll();
-        return lodash.filter(db, data);
+
+        const dbArray = require('./dbArray');
+
+        const reDb = dbArray.from(lodash.filter(db, data));
+
+        reDb.db = this;
+
+        return reDb;
     }
 
     map(fun) {
