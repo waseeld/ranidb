@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,12 @@
   "author": "Waseel AL-mahri",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.3.4",
     "fs": "0.0.1-security",
     "fs-extra": "^9.1.0",
+    "is-promise": "^4.0.0",
     "lodash": "^4.17.20",
+    "mocha": "^8.3.2",
     "shortid": "^2.2.16"
   }
 }

@@ -7,6 +7,7 @@ class Ranidb {
     constructor(path_db, setting = { idType: 'random' }) {
         this.path_db = path_db;
         this.setType(setting.idType);
+        this.fileExist()
     }
 
     setType(type) {
@@ -20,12 +21,41 @@ class Ranidb {
         }
     }
 
+    fileExist(path = this.path_db) {
+        try {
+            if (fs.existsSync(path)) {
+                // console.log("The db exists.");
+                return true;
+            } else {
+                // console.log('The db does not exist.');
+                // console.log("Don't worry i will create empty db");
+                try {
+                    fs.writeFileSync(path, "[]");
+                    return true
+                } catch (error) {
+                    let folder = path.split("/");
+                    folder.pop()
+                    fs.mkdirSync(folder.join("/"));
+                    fs.writeFileSync(path, "[]");
+                    return true
+                }
+            }
+        } catch (err) {
+            console.error(err);
+            return false
+        }
+    }
+
     ensureFile(callback) {
         if (fs.existsSync(this.path_db)) {
             return callback();
         } else {
-            fs.writeFileSync(this.path_db, JSON.stringify([]), { flag: 'wx' })
-            return "Not found db\nCreate new DB";
+            this.fileExist();
+            if (fs.existsSync(this.path_db)) {
+                return callback();
+            } else {
+                return "Not found db\nCreate new DB";
+            }
         }
     }
 
@@ -94,19 +124,15 @@ class Ranidb {
         return reDb;
     }
 
-    map(fun) {
+    updata(find, data) {
         let db = this.getAll();
-        return lodash.map(db, fun);
-    }
-
-    updata(id, data) {
-        let db = this.getAll();
-        let index = this.findIndex({ _id: id });
+        let index = this.findIndex(find);
         db[index] = data;
+        this.save(db);
         return data;
     }
 
-    clear(){
+    clear() {
         try {
             this.save([])
         } catch (error) {
@@ -115,4 +141,4 @@ class Ranidb {
     }
 }
 
-module.exports = Ranidb
+module.exports = { Ranidb }
