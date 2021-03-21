@@ -1,4 +1,4 @@
-const { Ranidb } = require('../index');
+const Ranidb = require('../index');
 var expect = require('chai').expect
 const fs = require('fs');
 

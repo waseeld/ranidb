@@ -141,4 +141,4 @@ class Ranidb {
     }
 }
 
-module.exports = { Ranidb }
+module.exports = Ranidb
