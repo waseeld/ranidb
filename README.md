@@ -32,7 +32,7 @@ const ranidb = require('ranidb');
 - <a href="#find"><code>db.<b>find()</b></code></a>
 - <a href="#filter"><code>db.<b>filter()</b></code></a>
 - <a href="#findIndex"><code>db.<b>findIndex()</b></code></a>
-- <a href="#map"><code>db.<b>map()</b></code></a>
+- <a href="#clear"><code>db.<b>clear()</b></code></a>
 - <a href="#updata"><code>db.<b>updata()</b></code></a>
 - <a href="#Options"><code><b>Options</b></code></a>
 
@@ -230,20 +230,26 @@ db.filter((user) => user.active == true)
 
 
 
-<a name="map"></a>
+<a name="clear"></a>
 
-### `map(fun)`
+### `clear()`
 
-This function will data to need find.
-
-- `fun` it must be function.
+This function will clear all data in ranidb.
 
 ```js
 let db = new ranidb("./db/data.json");
-function fun(n) {
-  // some codes
-}
-db.map(fun)
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+db.clear()
+/* Output :
+   []
+*/
 ```
 
 
