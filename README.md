@@ -256,11 +256,11 @@ db.clear()
 
 <a name="updata"></a>
 
-### `updata(id, data)`
+### `updata(find, data)`
 
 This function will data to need find.
 
-- `id` it must be string.
+- `find` it must be opject.
 - `data` it must be object.
 
 ```js
@@ -281,10 +281,10 @@ let data = {
     active: true
 }
 
-db.updata("Wtl9v2x-Q", data)
+db.updata({ _id: 'Wtl9v2x-Q'}, data)
 
 /* Output :
-   { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true }
+   { _id: 'Wtl9v2x-Q', user: 'barney', age: 42, active: true }
 */
 ```
 
