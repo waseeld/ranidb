@@ -3,25 +3,26 @@
 > A simple "database" that use JSON file for Node.JS.
 
 ## Installation
+
 Add `ranidb` to your existing Node.js project.
 
 with npm :
+
 ```bash
 npm i ranidb
 ```
+
 or with yarn:
+
 ```bash
 yarn add ranidb
 ```
 
-
 ## Used with node
 
 ```js
-const ranidb = require('ranidb');
+const ranidb = require("ranidb");
 ```
-
-
 
 ## API
 
@@ -36,13 +37,10 @@ const ranidb = require('ranidb');
 - <a href="#updata"><code>db.<b>updata()</b></code></a>
 - <a href="#Options"><code><b>Options</b></code></a>
 
-
-
-
-
 <a name="core"></a>
 
 ### `Ranidb(path_db)`
+
 The main entry point for creating a new `Ranidb` instance.
 
 - `path_db` it must be string for path to file json, for example : `"./db/data.json"`
@@ -54,6 +52,7 @@ let db = new ranidb("./db/data.json");
 <a name="save"></a>
 
 ### `save(data)`
+
 This function will delete all data and then rewrite it again.
 
 - `data` it must be Array data.
@@ -61,15 +60,13 @@ This function will delete all data and then rewrite it again.
 ```js
 let db = new ranidb("./db/data.json");
 let arr = [
-{id: 1, name:"sami", age:21},
-{id: 2, name:"was", age:19},
-{id: 3, name:"ahmed", age:17}
+  { id: 1, name: "sami", age: 21 },
+  { id: 2, name: "was", age: 19 },
+  { id: 3, name: "ahmed", age: 17 },
 ];
 
-db.save(arr)
+db.save(arr);
 ```
-
-
 
 <a name="getAll"></a>
 
@@ -79,7 +76,7 @@ This function will return data in file json.
 
 ```js
 let db = new ranidb("./db/data.json");
-db.getAll()
+db.getAll();
 
 /* Output :
 [
@@ -87,8 +84,6 @@ db.getAll()
 ]
 */
 ```
-
-
 
 <a name="push"></a>
 
@@ -100,7 +95,7 @@ This function will push data in file json.
 
 ```js
 let db = new ranidb("./db/data.json");
-let data = {name:"ahmed", age:17};
+let data = { name: "ahmed", age: 17 };
 
 db.push(data);
 /* Output :
@@ -110,7 +105,117 @@ db.push(data);
 */
 ```
 
+<a name="filter"></a>
 
+### `filter(data)`
+
+This function will data to need find.
+
+- `data` it must be object data or function.
+
+```js
+let db = new ranidb("./db/data.json");
+
+db.filter((user) => user.age > 12);
+
+/* Output :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'rqACSWx6kA', user: 'fred', age: 40, active: false }
+]
+*/
+
+db.filter((user) => user.active == true);
+
+/* Output :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+```
+
+<a name="Sub-functions"></a>
+
+#### `Sub-functions`
+
+- delete
+
+```js
+let db = new ranidb("./db/data.json");
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+
+//this anthor way to used filter "db.filter({age: 1})" 😉
+
+db.filter({ age: 1 }).delete();
+/* in file json :
+[
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+```
+
+- updata
+
+```js
+let db = new ranidb("./db/data.json");
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+
+db.filter({ age: 1 }).updata([
+  { name: "update 1" },
+  { name: "update 2", active: false },
+]);
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { name:"update 1" },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { name:"update 2" , active: false }
+]
+*/
+```
+
+- put
+
+```js
+let db = new ranidb("./db/data.json");
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true }
+]
+*/
+
+//this anthor way to used filter "db.filter({age: 1})" 😉
+
+db.filter({ age: 1 }).put({ user: "new user" });
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'new user', age: 1, active: true }
+]
+*/
+```
+
+> in filter.put() or .update() if you noUsed array in param will edit all item with
+> same value
 
 <a name="find"></a>
 
@@ -123,20 +228,20 @@ This function will data to need find.
 ```js
 let db = new ranidb("./db/data.json");
 
-db.find({_id:"rqACSWx6kA"})
+db.find({ _id: "rqACSWx6kA" });
 
 /* Output :
     {"_id": "rqACSWx6kA","user": "fred","age": 40,"active": false}
 */
 
-db.find({_id:"rqACSWx6kA", age: 40})
+db.find({ _id: "rqACSWx6kA", age: 40 });
 
 /* Output :
     {"_id": "rqACSWx6kA","user": "fred","age": 40,"active": false}
 */
 ```
 
-
+> <a href="#Sub-functions"><code><b>all Sub-functions work in find like filter ()</b></code></a>
 
 <a name="findIndex"></a>
 
@@ -172,63 +277,25 @@ let db = new ranidb("./db/data.json");
 ]
 */
 
-db.findIndex({_id:"Wtl9v2x-Q"})
+db.findIndex({ _id: "Wtl9v2x-Q" });
 
 /* Output :
     0
 */
 
-db.findIndex({_id:"rqACSWx6kA", age: 40})
+db.findIndex({ _id: "rqACSWx6kA", age: 40 });
 
 /* Output :
     1
 */
 
 // for not find
-db.findIndex({_id:"rqACSWx6kA", age: 42})
+db.findIndex({ _id: "rqACSWx6kA", age: 42 });
 
 /* Output :
     -1
 */
 ```
-
-
-
-
-
-<a name="filter"></a>
-
-### `filter(data)`
-
-This function will data to need find.
-
-- `data` it must be object data or function.
-
-```js
-let db = new ranidb("./db/data.json");
-
-db.filter((user) => user.age > 12)
-
-/* Output :
-[
-  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
-  { _id: 'rqACSWx6kA', user: 'fred', age: 40, active: false }
-]
-*/
-
-db.filter((user) => user.active == true)
-
-/* Output :
-[
-  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
-  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
-  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
-  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
-]
-*/
-```
-
-
 
 <a name="clear"></a>
 
@@ -246,13 +313,11 @@ let db = new ranidb("./db/data.json");
   { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
 ]
 */
-db.clear()
+db.clear();
 /* Output :
    []
 */
 ```
-
-
 
 <a name="updata"></a>
 
@@ -275,13 +340,13 @@ let db = new ranidb("./db/data.json");
 */
 
 let data = {
-    _id: 'Wtl9v2x-Q',
-    user: 'barney',
-    age: 42,
-    active: true
-}
+  _id: "Wtl9v2x-Q",
+  user: "barney",
+  age: 42,
+  active: true,
+};
 
-db.updata({ _id: 'Wtl9v2x-Q'}, data)
+db.updata({ _id: "Wtl9v2x-Q" }, data);
 
 /* Output :
    { _id: 'Wtl9v2x-Q', user: 'barney', age: 42, active: true }
@@ -295,33 +360,37 @@ db.updata({ _id: 'Wtl9v2x-Q'}, data)
 now we're going to make changes to some of the virtual things
 
 - `idType` it must be string.
-    * random (default)
-    ```js
-    let db = new ranidb("./db/data.json" , {idType : 'random'} );
-    /*
-    is like let db = new ranidb("./db/data.json")
-    */
-    /* Output :
-       { _id: 'Wtl9v2x-Q', ... }
-    */
-    ```
 
-    * empty
-    ```js
-    let db = new ranidb("./db/data.json" , {idType : 'empty'} );
-    /* Output :
-       { ... }
-    */
-    ```
-    
-    * gradual
-    ```js
-    let db = new ranidb("./db/data.json" , {idType : 'gradual'} );
-    /* Output :
-       { _id: '1', ... },
-       { _id: '2', ... },
-       { _id: '3', ... },
-       { _id: '4', ... },
-       { _id: '5', ... }
-    */
-    ```
+  - random (default)
+
+  ```js
+  let db = new ranidb("./db/data.json", { idType: "random" });
+  /*
+  is like let db = new ranidb("./db/data.json")
+  */
+  /* Output :
+     { _id: 'Wtl9v2x-Q', ... }
+  */
+  ```
+
+  - empty
+
+  ```js
+  let db = new ranidb("./db/data.json", { idType: "empty" });
+  /* Output :
+     { ... }
+  */
+  ```
+
+  - gradual
+
+  ```js
+  let db = new ranidb("./db/data.json", { idType: "gradual" });
+  /* Output :
+     { _id: '1', ... },
+     { _id: '2', ... },
+     { _id: '3', ... },
+     { _id: '4', ... },
+     { _id: '5', ... }
+  */
+  ```
