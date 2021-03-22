@@ -105,6 +105,118 @@ db.push(data);
 */
 ```
 
+<a name="filter"></a>
+
+### `filter(data)`
+
+This function will data to need find.
+
+- `data` it must be object data or function.
+
+```js
+let db = new ranidb("./db/data.json");
+
+db.filter((user) => user.age > 12);
+
+/* Output :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'rqACSWx6kA', user: 'fred', age: 40, active: false }
+]
+*/
+
+db.filter((user) => user.active == true);
+
+/* Output :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+```
+
+<a name="Sub-functions"></a>
+
+#### `Sub-functions`
+
+- delete
+
+```js
+let db = new ranidb("./db/data.json");
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+
+//this anthor way to used filter "db.filter({age: 1})" 😉
+
+db.filter({ age: 1 }).delete();
+/* in file json :
+[
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+```
+
+- updata
+
+```js
+let db = new ranidb("./db/data.json");
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+
+db.filter({ age: 1 }).updata([
+  { name: "update 1" },
+  { name: "update 2", active: false },
+]);
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { name:"update 1" },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { name:"update 2" , active: false }
+]
+*/
+```
+
+- put
+
+```js
+let db = new ranidb("./db/data.json");
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true }
+]
+*/
+
+//this anthor way to used filter "db.filter({age: 1})" 😉
+
+db.filter({ age: 1 }).put({ user: "new user" });
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'new user', age: 1, active: true }
+]
+*/
+```
+
+> in filter.put() or .update() if you noUsed array in param will edit all item with
+> same value
+
 <a name="find"></a>
 
 ### `find(data)`
@@ -128,6 +240,8 @@ db.find({ _id: "rqACSWx6kA", age: 40 });
     {"_id": "rqACSWx6kA","user": "fred","age": 40,"active": false}
 */
 ```
+
+> <a href="#Sub-functions"><code><b>all Sub-functions work in find like filter ()</b></code></a>
 
 <a name="findIndex"></a>
 
@@ -180,38 +294,6 @@ db.findIndex({ _id: "rqACSWx6kA", age: 42 });
 
 /* Output :
     -1
-*/
-```
-
-<a name="filter"></a>
-
-### `filter(data)`
-
-This function will data to need find.
-
-- `data` it must be object data or function.
-
-```js
-let db = new ranidb("./db/data.json");
-
-db.filter((user) => user.age > 12);
-
-/* Output :
-[
-  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
-  { _id: 'rqACSWx6kA', user: 'fred', age: 40, active: false }
-]
-*/
-
-db.filter((user) => user.active == true);
-
-/* Output :
-[
-  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
-  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
-  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
-  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
-]
 */
 ```
 
