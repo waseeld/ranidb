@@ -105,6 +105,8 @@ class Ranidb {
 
     let result = lodash.find(db, data);
 
+    if (!result) return;
+
     let newResult = new raniObj();
 
     for (let item in result) {
