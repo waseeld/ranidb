@@ -1,5 +1,1 @@
-[
-  { "_id": "JfMOsuESH", "user": "barney", "age": 36, "active": true },
-  { "_id": "OHILvgy0ZD", "user": "fred", "age": 40, "active": false },
-  { "_id": "GT6DhK6KXb", "user": "pebbles", "age": 1, "active": true }
-]
+[{"_id":"JfMOsuESH","user":"barney","age":36,"active":true},{"_id":"OHILvgy0ZD","user":"fred","age":40,"active":false}]

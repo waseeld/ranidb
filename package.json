@@ -2,10 +2,12 @@
   "name": "ranidb",
   "version": "0.0.72",
   "description": "",
-  "main": "index.js",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "test": "mocha",
-    "prettier": "npx prettier --write ."
+    "prettier": "npx prettier --write .",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,11 @@
     "shortid": "^2.2.16"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.22",
+    "@types/fs-extra": "^9.0.13",
+    "@types/lodash": "^4.14.176",
+    "@types/mocha": "^9.0.0",
+    "@types/shortid": "0.0.29",
     "prettier": "2.2.1"
   }
 }
