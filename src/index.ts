@@ -246,4 +246,4 @@ class Ranidb {
     }
 }
 
-module.exports = Ranidb;
+export = Ranidb;
