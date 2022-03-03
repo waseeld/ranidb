@@ -51,6 +51,29 @@ describe("Functions", function () {
         expect(clear == true && allDataNow.length == 0).equal(true)
     })
 
+    it("delete()", () => {
+        let startData = [
+            {
+                "_id": "JfMOsuESH",
+                "user": "barney",
+                "age": 36,
+                "active": true
+            },
+            {
+                "_id": "OHILvgy0ZD",
+                "user": "fred",
+                "age": 40,
+                "active": false
+            }
+        ]
+
+        db.save(startData)
+        let clear = db.delete({active: false})
+        let allDataNow = db.getAll()
+        // console.log(allDataNow, clear);
+        expect(allDataNow.length < startData.length).equal(true)
+    })
+
     it("save()", () => {
         let startData = [
             {

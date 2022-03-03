@@ -244,6 +244,24 @@ class Ranidb {
           return false
         }
     }
+
+    delete(data: any) : any {
+        let AllData: Object[] = this.getAll()
+        let keys = Object.keys(data)
+        let removes = lodash.remove(AllData, (e: any) => {
+            let logic: boolean[] = []
+            for(let i = 0; i < keys.length; i++){
+                let key: any = keys[i]
+                let log = e[key] == data[key]
+                logic.push(log)
+            }
+
+            return logic.every(e => e == true)
+        })
+
+        this.save(AllData)
+        return removes.length > 0
+    }
 }
 
 export = Ranidb;

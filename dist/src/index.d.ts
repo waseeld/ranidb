@@ -17,5 +17,6 @@ declare class Ranidb {
     filter(data: object): object[];
     updata(find: object, data: object): object;
     clear(): boolean;
+    delete(data: any): any;
 }
 export = Ranidb;
