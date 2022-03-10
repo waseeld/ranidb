@@ -143,10 +143,10 @@ class Ranidb {
         }
     }
     save(data) {
-        data = JSON.stringify(data);
+        let data_txt = JSON.stringify(data);
         this.ensureFile(() => {
             try {
-                fs.writeFileSync(this.path_db, data, { encoding: "utf-8" });
+                fs.writeFileSync(this.path_db, data_txt, { encoding: "utf-8" });
                 return true;
             }
             catch (error) {
@@ -154,6 +154,7 @@ class Ranidb {
                 return false;
             }
         });
+        return this.getAll() == data ? true : false;
     }
     getAll() {
         return this.ensureFile(() => {
@@ -171,7 +172,12 @@ class Ranidb {
         }
         else if (this.idType === 3)
             _id = lastId;
-        data = Object.assign({ _id: _id }, data);
+        if (_id != undefined) {
+            data = Object.assign({}, data);
+        }
+        else {
+            data = Object.assign({ _id: _id }, data);
+        }
         db.push(data);
         this.save(db);
         return data;

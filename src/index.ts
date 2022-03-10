@@ -146,17 +146,19 @@ class Ranidb {
         }
     }
 
-    save(data: any) {
-        data = JSON.stringify(data);
+    save(data: Array<any>): Boolean {
+        let data_txt: string = JSON.stringify(data);
         this.ensureFile(() => {
             try {
-                fs.writeFileSync(this.path_db, data, { encoding: "utf-8" });
+                fs.writeFileSync(this.path_db, data_txt, { encoding: "utf-8" });
                 return true;
             } catch (error) {
                 console.error(error);
                 return false;
             }
         });
+
+        return this.getAll() == data ? true : false
     }
 
     getAll(): Array<object> {
@@ -179,17 +181,23 @@ class Ranidb {
             _id = shortid.generate();
         } else if (this.idType === 3) _id = lastId;
 
-        data = {
-            _id: _id,
-            ...data,
-        };
+        if (_id != undefined) {
+            data = {
+                ...data,
+            };
+        }else{
+            data = {
+                _id: _id,
+                ...data,
+            };
+        }
 
         db.push(data);
         this.save(db);
         return data;
     }
 
-    find(data: object){    
+    find(data: object): object | Array<object>{    
         let db = this.getAll();
     
         let result = lodash.find(db, data);
@@ -213,7 +221,7 @@ class Ranidb {
         return lodash.findIndex(db, data);
     }
 
-    filter(data: object) {
+    filter(data: object): Array<object> {
         let db = this.getAll();
         
         // let result = new raniArray();
@@ -245,7 +253,7 @@ class Ranidb {
         }
     }
 
-    delete(data: any) : any {
+    delete(data: any) : boolean {
         let AllData: Object[] = this.getAll()
         let keys = Object.keys(data)
         let removes = lodash.remove(AllData, (e: any) => {

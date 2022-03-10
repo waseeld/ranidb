@@ -57,7 +57,7 @@ describe("Functions", function () {
         db.save(startData);
         let clear = db.delete({ active: false });
         let allDataNow = db.getAll();
-        console.log(allDataNow, clear);
+        // console.log(allDataNow, clear);
         expect(allDataNow.length < startData.length).equal(true);
     });
     it("save()", () => {
