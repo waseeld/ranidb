@@ -137,86 +137,6 @@ db.filter((user) => user.active == true);
 */
 ```
 
-<a name="Sub-functions"></a>
-
-#### `Sub-functions`
-
-- delete
-
-```js
-let db = new ranidb("./db/data.json");
-/* in file json :
-[
-  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
-  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
-  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
-  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
-]
-*/
-
-//this anthor way to used filter "db.filter({age: 1})" 😉
-
-db.filter({ age: 1 }).delete();
-/* in file json :
-[
-  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
-  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
-]
-*/
-```
-
-- updata
-
-```js
-let db = new ranidb("./db/data.json");
-/* in file json :
-[
-  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
-  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
-  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
-  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
-]
-*/
-
-db.filter({ age: 1 }).updata([
-  { name: "update 1" },
-  { name: "update 2", active: false },
-]);
-/* in file json :
-[
-  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
-  { name:"update 1" },
-  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
-  { name:"update 2" , active: false }
-]
-*/
-```
-
-- put
-
-```js
-let db = new ranidb("./db/data.json");
-/* in file json :
-[
-  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
-  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true }
-]
-*/
-
-//this anthor way to used filter "db.filter({age: 1})" 😉
-
-db.filter({ age: 1 }).put({ user: "new user" });
-/* in file json :
-[
-  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
-  { _id: 'DniDQHMNpo', user: 'new user', age: 1, active: true }
-]
-*/
-```
-
-> in filter.put() or .update() if you noUsed array in param will edit all item with
-> same value
-
 <a name="find"></a>
 
 ### `find(data)`
@@ -351,6 +271,43 @@ db.updata({ _id: "Wtl9v2x-Q" }, data);
 /* Output :
    { _id: 'Wtl9v2x-Q', user: 'barney', age: 42, active: true }
 */
+```
+
+### `delete(find)`
+
+This function will data to need find.
+
+- `find` it must be opject.
+
+```js
+let db = new ranidb("./db/data.json");
+/* in file json :
+[
+  { _id: 'Wtl9v2x-Q', user: 'barney', age: 36, active: true },
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+
+let data = {
+  _id: "Wtl9v2x-Q",
+  user: "barney",
+  age: 42,
+  active: true,
+};
+
+db.delete({ _id: "Wtl9v2x-Q" });
+
+/* Output : true */
+/* in file json :
+[
+  { _id: 'DniDQHMNpo', user: 'pebbles', age: 1, active: true },
+  { _id: 'SflmjJaVN', user: 'barney', age: 36, active: true },
+  { _id: 'mL7Np2hr_Z', user: 'pebbles', age: 1, active: true }
+]
+*/
+
 ```
 
 <a name="Options"></a>
