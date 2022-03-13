@@ -10,12 +10,14 @@ declare class Ranidb {
     fileExist(path?: string): boolean;
     ensureFile(callback: Function): any;
     save(data: Array<any>): Boolean;
-    getAll(): Array<object>;
-    push(data: object): object;
-    find(data: object): object | Array<object>;
+    getAll<T = unknown>(): Array<T>;
+    push<T extends object>(data: T): T & {
+        _id?: string;
+    };
+    find<T extends object>(data: object | number | Function): T | Array<T> | undefined;
     findIndex(data: object): Number;
-    filter(data: object): Array<object>;
-    updata(find: object, data: object): object;
+    filter<T = unknown>(data: object): T[];
+    updata<T extends object>(find: object, data: T): T;
     clear(): boolean;
     delete(data: any): boolean;
 }

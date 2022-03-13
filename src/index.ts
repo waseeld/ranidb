@@ -161,14 +161,14 @@ class Ranidb {
         return this.getAll() == data ? true : false
     }
 
-    getAll(): Array<object> {
+    getAll<T = unknown>(): Array<T> {
         return this.ensureFile(() => {
             let data = fs.readFileSync(this.path_db, { encoding: "utf-8" });
             return JSON.parse(data);
         });
     }
 
-    push(data: object): object {
+    push<T extends object>(data: T): T & {_id?: string} {
         let all: any = this.getAll();
 
         let lastId = all.length ? all[all.length - 1]._id + 1 : 1;
@@ -196,13 +196,13 @@ class Ranidb {
         this.save(db);
         return data;
     }
-
-    find(data: object): object | Array<object>{    
+    
+    find<T extends object>(data: object | number | Function): T | Array<T> | undefined{    
         let db = this.getAll();
     
-        let result = lodash.find(db, data);
+        let result = lodash.find(db, data) as T | undefined;
     
-        if (!result) return {};
+        if (!result) return;
     
         // let newResult = new raniObj();
     
@@ -212,8 +212,10 @@ class Ranidb {
         // newResult.filter.that = this.filter(result);
     
         // newResult.filter.that.db.that = this;
-    
-        return result;
+        
+        if(typeof result === "object" || Array.isArray(result)) {
+            return result;
+        }
     }
 
     findIndex(data: object): Number {
@@ -221,7 +223,7 @@ class Ranidb {
         return lodash.findIndex(db, data);
     }
 
-    filter(data: object): Array<object> {
+    filter<T = unknown>(data: object): T[] {
         let db = this.getAll();
         
         // let result = new raniArray();
@@ -230,12 +232,13 @@ class Ranidb {
     
         // result.db.that = this;
 
-        let result = lodash.filter(db, data);
+        let result = lodash.filter(db, data) as T[];
 
         return result;
     }
 
-    updata(find: object, data: object) {
+    updata<T extends object>(find: object, data: T): T {
+        // TODO: Add check _id
         let db = this.getAll();
         let index: any = this.findIndex(find);
         db[index] = data;
