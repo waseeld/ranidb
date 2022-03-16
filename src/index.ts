@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 
-import * as shortid from 'shortid';
+import { randomBytes } from "crypto";
 
 import * as lodash from 'lodash'
 import { extend } from 'lodash';
@@ -34,11 +34,8 @@ class Ranidb {
     fileExist(path = this.path_db) {
         try {
             if (fs.existsSync(path)) {
-                // console.log("The db exists.");
                 return true;
             } else {
-                // console.log('The db does not exist.');
-                // console.log("Don't worry i will create empty db");
                 try {
                     fs.writeFileSync(path, "[]");
                     return true;
@@ -101,7 +98,7 @@ class Ranidb {
         let _id: any = undefined;
 
         if (this.idType === 1) {
-            _id = shortid.generate();
+            _id = randomBytes(16).toString("hex");
         } else if (this.idType === 3) _id = lastId;
 
         if (_id != undefined) {
@@ -126,15 +123,6 @@ class Ranidb {
         let result = lodash.find(db, data) as T | undefined;
     
         if (!result) return;
-    
-        // let newResult = new raniObj();
-    
-        // for (let item in result) {
-        //   newResult[item] = result[item];
-        // }
-        // newResult.filter.that = this.filter(result);
-    
-        // newResult.filter.that.db.that = this;
         
         if(typeof result === "object" || Array.isArray(result)) {
             return result;
@@ -148,12 +136,6 @@ class Ranidb {
 
     filter<T = unknown>(data: object): T[] {
         let db = this.getAll();
-        
-        // let result = new raniArray();
-    
-        // result = raniArray.from(lodash.filter(db, data));
-    
-        // result.db.that = this;
 
         let result = lodash.filter(db, data) as T[];
 
