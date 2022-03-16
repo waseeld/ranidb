@@ -1,5 +1,5 @@
 {
-  "name": "ranidb",
+  "name": "@salemkode/ranidb",
   "version": "0.0.72",
   "description": "",
   "main": "dist/src/index.js",
