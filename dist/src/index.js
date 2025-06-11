@@ -173,10 +173,10 @@ class Ranidb {
         else if (this.idType === 3)
             _id = lastId;
         if (_id != undefined) {
-            data = Object.assign({}, data);
+            data = Object.assign({ _id: _id }, data);
         }
         else {
-            data = Object.assign({ _id: _id }, data);
+            data = Object.assign({}, data);
         }
         db.push(data);
         this.save(db);

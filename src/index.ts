@@ -183,11 +183,11 @@ class Ranidb {
 
         if (_id != undefined) {
             data = {
+                _id: _id,
                 ...data,
             };
-        }else{
+        } else {
             data = {
-                _id: _id,
                 ...data,
             };
         }
